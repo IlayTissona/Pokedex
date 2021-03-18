@@ -5,7 +5,11 @@ function SearchArea(props) {
 
   return (
     <div className="searchArea">
-      <input onChange={setValue(input.value)} />
+      <input
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
       <button
         onClick={() => {
           props.search(value);
