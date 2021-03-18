@@ -27,8 +27,41 @@
 
 #listDiv {
   grid-row: 3;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
 }
 
+.typeListItem {
+  display: block;
+  border: 2px solid black;
+  width: 17%;
+  height: 35%;
+}
+
+#listItemImg {
+  height: 70%;
+  width: 50%;
+}
 ul {
   list-style: none;
+}
+
+#typeList {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#ulDiv {
+  height: 100%;
+  width: 100%;
+}
+#collection {
+  width: 10%;
+  height: 200%;
+  background-color: red;
+  color: black;
+  font-family: "Orbitron", sans-serif;
 }

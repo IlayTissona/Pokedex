@@ -3,7 +3,7 @@ import React, { Component } from "react";
 function ListItem({ pokemon, clickHandler }) {
   console.log(pokemon.front_default);
   return (
-    <li>
+    <li className="typeListItem">
       <button
         onClick={() => {
           clickHandler(pokemon.name);
@@ -11,7 +11,7 @@ function ListItem({ pokemon, clickHandler }) {
       >
         {pokemon.name}{" "}
       </button>
-      <img alt="front" src={pokemon.front_default} />
+      <img alt="front" id="listItemImg" src={pokemon.front_default} />
     </li>
   );
 }

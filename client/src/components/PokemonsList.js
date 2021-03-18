@@ -10,9 +10,9 @@ class PokemonsList extends Component {
   }
   render() {
     return (
-      <div>
+      <div id="ulDiv">
         <h2>Type</h2>
-        <ul>
+        <ul id="typeList">
           {this.props.list.map((pokemon) => {
             return (
               <ListItem

@@ -25,9 +25,17 @@ class Pokemon extends Component {
             })}
           </li>
         </ul>
-        <img alt="front" src={this.props.pokemon.front_default} />
-        <img alt="back" src={this.props.pokemon.back_default} />
-        <button>catch</button>
+        <img alt="front" src={pokemon.front_default} />
+        <img alt="back" src={pokemon.back_default} />
+        <button
+          onClick={
+            pokemon.catched
+              ? () => this.props.releasePokemon(pokemon.name)
+              : () => this.props.catchPokemon(pokemon.name)
+          }
+        >
+          {pokemon.catched ? "release" : "catch"}
+        </button>
       </div>
     );
   }
