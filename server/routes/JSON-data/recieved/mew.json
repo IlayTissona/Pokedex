@@ -1,1 +1,1 @@
-{"name":"mew","height":4,"weight":40,"types":["psychic"],"id":151,"catched":true,"back_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/151.png","front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png"}
+{"name":"mew","height":4,"weight":40,"types":["psychic"],"id":151,"catched":false,"back_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/151.png","front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png"}
