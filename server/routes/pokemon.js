@@ -34,7 +34,6 @@ pokemon.get("/catch/:name", async (req, res) => {
     }
   }
   pokemonFullObj.catched = !pokemonFullObj.catched;
-  console.log(pokemonFullObj);
   res.json(setExisting(pokemonFullObj));
 });
 
@@ -64,6 +63,7 @@ function isCatched(id) {
   );
   return catched.includes(id);
 }
+
 function getExisting(pokemonName) {
   if (
     fs.existsSync(
@@ -87,11 +87,4 @@ function setExisting(pokemonObj) {
   return pokemonObj;
 }
 
-function catchPokemon(pokemonObj) {
-  const catchedIds = JSON.parse(
-    fs.readFileSync(process.cwd() + "/routes/JSON-data/catchedIds.json")
-  );
-  catchedIds.push(pokemonObj.id);
-  return true;
-}
 module.exports = pokemon;
