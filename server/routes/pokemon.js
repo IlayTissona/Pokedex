@@ -30,7 +30,7 @@ pokemon.get("/catch/:name", async (req, res) => {
       );
       pokemonFullObj = generateResponsePokemon(responseFullObj.data);
     } catch (e) {
-      return res.send(e);
+      return res.send(e.message);
     }
   }
   pokemonFullObj.catched = !pokemonFullObj.catched;
@@ -44,7 +44,7 @@ function generateResponsePokemon(fullObj) {
   const { name, height, weight, id } = fullObj;
   const types = fullObj.types.map((typeObj) => typeObj.type.name);
   const { back_default, front_default } = fullObj.sprites;
-  const catched = isCatched(id);
+  const catched = false;
   return {
     name,
     height,
@@ -55,13 +55,6 @@ function generateResponsePokemon(fullObj) {
     back_default,
     front_default,
   };
-}
-
-function isCatched(id) {
-  const catched = JSON.parse(
-    fs.readFileSync(process.cwd() + "/routes/JSON-data/catchedIds.json")
-  );
-  return catched.includes(id);
 }
 
 function getExisting(pokemonName) {
