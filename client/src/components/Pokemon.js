@@ -12,14 +12,15 @@ class Pokemon extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="pokemonDetails">
         <ul>
           <li>Name: {this.state.name}</li>
           <li>Height: {this.state.height}</li>
           <li>Weight: {this.state.weight}</li>
           <li>Types: {this.state.types}</li>
         </ul>
-        {/* <img></img> */}
+        {/* <img src={this.state.front_default}></img> */}
+        {/* <img src={this.state.back_default}></img> */}
         <button>catch</button>
       </div>
     );

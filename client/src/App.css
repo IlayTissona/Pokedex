@@ -1,5 +1,30 @@
-/* .App {
-  background-image: url("./pokemonBackground.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
+.App {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 40% 20% 40%;
+  font-family: "Orbitron", sans-serif;
+}
+
+#searchDiv {
+  grid-row: 1;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 20% 10% 70%;
+}
+
+#title {
+  margin-top: 0%;
+  grid-row: 1;
+}
+
+.searchArea {
+  grid-row: 2;
+}
+
+.pokemonDetails {
+  grid-row: 3;
+}
+
+#listDiv {
+  grid-row: 3;
+}
