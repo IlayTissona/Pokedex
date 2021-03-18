@@ -97,7 +97,7 @@ type.get("/:typeName", async (req, res) => {
     (prop) =>
       getExisting(prop.pokemon.name) || {
         name: prop.pokemon.name,
-        default_front:
+        front_default:
           "https://www.pngitem.com/pimgs/m/71-718954_pokemon-question-mark-png-pokemon-unown-question-mark.png",
       }
   );
