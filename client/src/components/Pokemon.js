@@ -3,24 +3,30 @@ import React, { Component } from "react";
 class Pokemon extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: props.name,
-      height: props.height,
-      weight: props.weight,
-      types: props.types,
-    };
   }
+
   render() {
+    const pokemon = this.props.pokemon;
     return (
       <div className="pokemonDetails">
         <ul>
-          <li>Name: {this.state.name}</li>
-          <li>Height: {this.state.height}</li>
-          <li>Weight: {this.state.weight}</li>
-          <li>Types: {this.state.types}</li>
+          <li>Name: {pokemon.name}</li>
+          <li>Height: {pokemon.height}</li>
+          <li>Weight: {pokemon.weight}</li>
+          <li>
+            Types:{" "}
+            {pokemon.types.map((link) => {
+              return (
+                <button onClick={() => this.props.typeOnClick(link)}>
+                  {" "}
+                  {link}{" "}
+                </button>
+              );
+            })}
+          </li>
         </ul>
-        {/* <img src={this.state.front_default}></img> */}
-        {/* <img src={this.state.back_default}></img> */}
+        <img alt="front" src={this.props.pokemon.front_default} />
+        <img alt="back" src={this.props.pokemon.back_default} />
         <button>catch</button>
       </div>
     );

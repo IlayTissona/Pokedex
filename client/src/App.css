@@ -28,3 +28,7 @@
 #listDiv {
   grid-row: 3;
 }
+
+ul {
+  list-style: none;
+}
