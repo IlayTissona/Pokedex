@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 function SearchArea(props) {
+  const [value, setValue] = useState("");
+
   return (
     <div className="searchArea">
-      <input />
-      <button onClick={props.search}>Search</button>
+      <input onChange={setValue(input.value)} />
+      <button
+        onClick={() => {
+          props.search(value);
+        }}
+      >
+        Search
+      </button>
     </div>
   );
 }
