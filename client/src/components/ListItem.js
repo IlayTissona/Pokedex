@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 
 function ListItem({ pokemon, clickHandler }) {
+  console.log(pokemon.front_default);
   return (
     <li>
       <button
         onClick={() => {
-          clickHandler(pokemon);
+          clickHandler(pokemon.name);
         }}
       >
-        {pokemon}{" "}
+        {pokemon.name}{" "}
       </button>
+      <img alt="front" src={pokemon.front_default} />
     </li>
   );
 }
