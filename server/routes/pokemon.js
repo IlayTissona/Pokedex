@@ -2,6 +2,12 @@ const { Router } = require("express");
 const axios = require("axios");
 const fs = require("fs");
 const e = require("express");
+const {
+  setExisting,
+  getExisting,
+  generateResponsePokemon,
+} = require("../utils/pokeAPI");
+
 require("dotenv").config();
 
 const collectionURL = process.env.POKEAPI_URL + "pokemon";
@@ -36,48 +42,5 @@ pokemon.get("/catch/:name", async (req, res) => {
   pokemonFullObj.catched = !pokemonFullObj.catched;
   res.json(setExisting(pokemonFullObj));
 });
-
-//name. height, weight, types, catched, id
-
-//----------------------------------------------Functions-------------------------------------------------//
-function generateResponsePokemon(fullObj) {
-  const { name, height, weight, id } = fullObj;
-  const types = fullObj.types.map((typeObj) => typeObj.type.name);
-  const { back_default, front_default } = fullObj.sprites;
-  const catched = false;
-  return {
-    name,
-    height,
-    weight,
-    types,
-    id,
-    catched,
-    back_default,
-    front_default,
-  };
-}
-
-function getExisting(pokemonName) {
-  if (
-    fs.existsSync(
-      `${process.cwd()}/routes/JSON-data/recieved/${pokemonName}.json`
-    )
-  ) {
-    return JSON.parse(
-      fs.readFileSync(
-        `${process.cwd()}/routes/JSON-data/recieved/${pokemonName}.json`
-      )
-    );
-  }
-  return null;
-}
-
-function setExisting(pokemonObj) {
-  fs.writeFileSync(
-    `${process.cwd()}/routes/JSON-data/recieved/${pokemonObj.name}.json`,
-    JSON.stringify(pokemonObj)
-  );
-  return pokemonObj;
-}
 
 module.exports = pokemon;
