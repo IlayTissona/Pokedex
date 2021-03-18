@@ -7,10 +7,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-  const defaultPokemon = axios
-    .get("http://localhost:3001/api/pokemon/random")
-    .then((randomPokemon) => setPokemon(randomPokemon));
-  const [pokemon, setPokemon] = useState(defaultPokemon);
+  const [pokemon, setPokemon] = useState({ types: [] });
+  // const defaultPokemon = axios
+  //   .get("http://localhost:3001/api/pokemon/random")
+  //   .then((randomPokemon) => {
+  //     return randomPokemon;
+  //   });
+  // setPokemon(defaultPokemon.data);
+
   const [list, setList] = useState([]);
   function search(pokeName) {
     axios
@@ -62,7 +66,7 @@ function App() {
           releasePokemon={releasePokemon}
         />
         <button id="collection" onClick={collection}>
-          collection
+          My Collection
         </button>
       </div>
       <div id="listDiv">
