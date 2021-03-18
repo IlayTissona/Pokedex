@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
 const fs = require("fs");
+const e = require("express");
 require("dotenv").config();
 
 const collectionURL = process.env.POKEAPI_URL + "pokemon";
@@ -8,16 +9,6 @@ const pokemon = Router();
 
 pokemon.get("/:name", async (req, res) => {
   const pokemonName = req.params.name;
-  if (
-    fs.existsSync(
-      `${process.cwd()}/routes/JSON-data/recieved/${pokemonName}.json`
-    )
-  )
-    return res.send(
-      fs.readFileSync(
-        `${process.cwd()}/routes/JSON-data/recieved/${pokemonName}.json`
-      )
-    );
 
   const responseFullObj = await axios
     .get(collectionURL + "/" + pokemonName)
@@ -26,20 +17,25 @@ pokemon.get("/:name", async (req, res) => {
   if (!pokemonFullObj) {
     return res.sendStatus(404);
   }
-  res.json(pokemonFullObj);
-  fs.writeFileSync(
-    `${process.cwd()}/routes/JSON-data/recieved/${pokemonName}.json`,
-    JSON.stringify(pokemonFullObj)
-  );
+  res.json(setExisting(pokemonFullObj));
 });
 
 pokemon.get("/catch/:name", async (req, res) => {
   const pokemonName = req.params.name;
-
+  let pokemonFullObj = getExisting(pokemonName);
   if (!pokemonFullObj) {
-    return res.sendStatus(404);
+    try {
+      const responseFullObj = await axios.get(
+        collectionURL + "/" + pokemonName
+      );
+      pokemonFullObj = generateResponsePokemon(responseFullObj.data);
+    } catch (e) {
+      return res.send(e);
+    }
   }
-  res.send(pokemonFullObj);
+  pokemonFullObj.catched = !pokemonFullObj.catched;
+  console.log(pokemonFullObj);
+  res.json(setExisting(pokemonFullObj));
 });
 
 //name. height, weight, types, catched, id
@@ -67,6 +63,28 @@ function isCatched(id) {
     fs.readFileSync(process.cwd() + "/routes/JSON-data/catchedIds.json")
   );
   return catched.includes(id);
+}
+function getExisting(pokemonName) {
+  if (
+    fs.existsSync(
+      `${process.cwd()}/routes/JSON-data/recieved/${pokemonName}.json`
+    )
+  ) {
+    return JSON.parse(
+      fs.readFileSync(
+        `${process.cwd()}/routes/JSON-data/recieved/${pokemonName}.json`
+      )
+    );
+  }
+  return null;
+}
+
+function setExisting(pokemonObj) {
+  fs.writeFileSync(
+    `${process.cwd()}/routes/JSON-data/recieved/${pokemonObj.name}.json`,
+    JSON.stringify(pokemonObj)
+  );
+  return pokemonObj;
 }
 
 function catchPokemon(pokemonObj) {
