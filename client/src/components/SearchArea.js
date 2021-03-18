@@ -2,8 +2,9 @@ import React from "react";
 
 function SearchArea(props) {
   return (
-    <div>
-      <input className="searchArea" />
+    <div className="searchArea">
+      <input />
+      <button onClick={props.search}>Search</button>
     </div>
   );
 }
