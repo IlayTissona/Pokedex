@@ -13,9 +13,17 @@ require("dotenv").config();
 const collectionURL = process.env.POKEAPI_URL + "pokemon";
 const pokemon = Router();
 
+pokemon.get("/random", async (req, res) => {
+  const existingPokemons = fs.readdirSync("./JSON-data/recieved");
+  const randomPokemonName =
+    existingPokemon[Math.floor(Math.random() * existingPokemons.length)];
+
+  res.json(getExisting(randomPokemonName));
+});
 pokemon.get("/:name", async (req, res) => {
   const pokemonName = req.params.name;
-
+  const existing = getExisting(pokemonName);
+  if (existing) return res.json(existing);
   const responseFullObj = await axios
     .get(collectionURL + "/" + pokemonName)
     .catch((e) => res.send(e));
