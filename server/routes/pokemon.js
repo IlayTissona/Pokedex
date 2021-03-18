@@ -14,12 +14,17 @@ const collectionURL = process.env.POKEAPI_URL + "pokemon";
 const pokemon = Router();
 
 pokemon.get("/random", async (req, res) => {
-  const existingPokemons = fs.readdirSync("./JSON-data/recieved");
+  const existingPokemons = fs
+    .readdirSync(`${process.cwd()}/routes/JSON-data/recieved`, {
+      withFileTypes: false,
+    })
+    .map((fileName) => fileName.replace(".json", ""));
   const randomPokemonName =
-    existingPokemon[Math.floor(Math.random() * existingPokemons.length)];
+    existingPokemons[Math.floor(Math.random() * (existingPokemons.length - 1))];
 
   res.json(getExisting(randomPokemonName));
 });
+
 pokemon.get("/:name", async (req, res) => {
   const pokemonName = req.params.name;
   const existing = getExisting(pokemonName);
