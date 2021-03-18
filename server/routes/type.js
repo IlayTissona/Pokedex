@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const axios = require("axios");
+const { getExisting } = require("../utils/pokeAPI");
 
 const types = [
   {
@@ -89,10 +90,16 @@ const type = Router();
 type.get("/:typeName", async (req, res) => {
   const { typeName } = req.params;
   const typeObj = types.find((type) => type.name === typeName);
+  if (!typeObj) return res.sendStatus(404);
   const fullTypeDetails = await axios.get(typeObj.url);
   console.log(fullTypeDetails.data.pokemon);
   const pokemonNames = fullTypeDetails.data.pokemon.map(
-    (prop) => prop.pokemon.name
+    (prop) =>
+      getExisting(prop.pokemon.name) || {
+        name: prop.pokemon.name,
+        default_front:
+          "https://www.pngitem.com/pimgs/m/71-718954_pokemon-question-mark-png-pokemon-unown-question-mark.png",
+      }
   );
   res.json(pokemonNames);
 });
