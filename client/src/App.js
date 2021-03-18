@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import SearchArea from "./components/SearchArea";
+import Pokemon from "./components/Pokemon";
+import PokemonsList from "./components/PokemonsList";
+const arr = ["gil", "ilay"];
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchArea />
+      <Pokemon name="Gilad" height="1.74" weight="70" types="Gever" />
+      <PokemonsList list={arr} />
     </div>
   );
 }
