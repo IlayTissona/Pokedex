@@ -8,12 +8,14 @@ import axios from "axios";
 
 function App() {
   const [pokemon, setPokemon] = useState({ types: [] });
-  // const defaultPokemon = axios
-  //   .get("http://localhost:3001/api/pokemon/random")
-  //   .then((randomPokemon) => {
-  //     return randomPokemon;
-  //   });
-  // setPokemon(defaultPokemon.data);
+
+  function randomPokemon() {
+    axios
+      .get("http://localhost:3001/api/pokemon/random")
+      .then((randomPokemon) => {
+        setPokemon(randomPokemon.data);
+      });
+  }
 
   const [list, setList] = useState([]);
   function search(pokeName) {
@@ -65,10 +67,18 @@ function App() {
           typeOnClick={typeList}
           releasePokemon={releasePokemon}
         />
+      </div>
+      <div id="center">
         <button id="collection" onClick={collection}>
           My Collection
         </button>
+
+        <button id="randomPokemon" onClick={randomPokemon}>
+          {" "}
+          click <br /> here{" "}
+        </button>
       </div>
+
       <div id="listDiv">
         {" "}
         <PokemonsList clickHandler={search} list={list} />

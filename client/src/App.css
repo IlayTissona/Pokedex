@@ -21,8 +21,48 @@
   grid-row: 2;
 }
 
+.searchArea input {
+  border: none;
+  width: 30%;
+  height: 80%;
+}
+
+.searchArea button {
+  border: none;
+  background-color: red;
+  color: black;
+  height: 80%;
+  font-family: "Orbitron", sans-serif;
+  text-decoration: underline;
+}
+
 .pokemonDetails {
   grid-row: 3;
+  display: block;
+  align-items: center;
+  height: 80%;
+}
+
+#catchButton {
+  background-color: red;
+  border: none;
+  font-family: "Orbitron", sans-serif;
+  font-size: 30px;
+}
+
+#catchButton :hover {
+  animation: spin 1s infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes spin {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
 }
 
 #listDiv {
@@ -34,15 +74,23 @@
 
 .typeListItem {
   display: block;
-  border: 2px solid black;
+  border: 1px solid black;
   width: 17%;
   height: 35%;
+  align-items: center;
+}
+.typeListItem button {
+  background-color: white;
+  font-family: "Orbitron", sans-serif;
+  border: none;
+  text-decoration: underline;
 }
 
 #listItemImg {
   height: 70%;
   width: 50%;
 }
+
 ul {
   list-style: none;
 }
@@ -54,14 +102,44 @@ ul {
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 #ulDiv {
   height: 100%;
   width: 100%;
 }
+
 #collection {
-  width: 10%;
-  height: 200%;
-  background-color: red;
-  color: black;
+  margin-left: 0;
+  background-color: black;
+  color: white;
+  border: none;
+  width: 20%;
+  height: 15%;
+
   font-family: "Orbitron", sans-serif;
+}
+
+#center {
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 40% 20% 40%;
+  align-items: center;
+}
+
+#randomPokemon {
+  margin: auto;
+  border: none;
+  grid-column: 2;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 100px;
+  font-family: "Orbitron", sans-serif;
+}
+
+.typeButton {
+  background-color: red;
+  border: none;
+  font-family: "Orbitron", sans-serif;
+  text-decoration: underline;
 }

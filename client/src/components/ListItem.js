@@ -11,6 +11,7 @@ function ListItem({ pokemon, clickHandler }) {
       >
         {pokemon.name}{" "}
       </button>
+      <br />
       <img alt="front" id="listItemImg" src={pokemon.front_default} />
     </li>
   );
