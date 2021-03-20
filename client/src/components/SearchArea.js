@@ -11,6 +11,7 @@ function SearchArea(props) {
           setValue(e.target.value);
           props.searchSuggestions(e.target.value);
         }}
+        placeHolder="Search for Pokemons"
       />
       <button
         onClick={() => {
@@ -19,12 +20,7 @@ function SearchArea(props) {
       >
         Search
       </button>
-      <div id="searchSuggestions">
-        {" "}
-        {props.suggestions.map((suggestion) => {
-          return <Suggestion pokemoname={suggestion} />;
-        })}{" "}
-      </div>
+      <Suggestion clickHandler={props.search} pokemons={props.suggestions} />
     </div>
   );
 }

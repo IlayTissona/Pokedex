@@ -8,7 +8,7 @@ import axios from "axios";
 
 function App() {
   const [list, setList] = useState([]);
-  const [pokemon, setPokemon] = useState({ types: [] });
+  const [pokemon, setPokemon] = useState("landing");
   const [listType, setListType] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -97,7 +97,8 @@ function App() {
 
         <button id="randomPokemon" onClick={randomPokemon}>
           {" "}
-          click <br /> here{" "}
+          Random
+          <br />{" "}
         </button>
       </div>
 
