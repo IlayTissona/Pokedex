@@ -7,9 +7,10 @@ class Pokemon extends Component {
 
   render() {
     let pokemon = this.props.pokemon;
+
     if (pokemon === "landing") {
       return (
-        <div className="pokemonDetails landing">
+        <div className="pokemonDetails landing" hidden={this.props.show}>
           Welcome to our Pokedex!
           <br />
           You can start by searching or clicking on the random button.
@@ -18,7 +19,7 @@ class Pokemon extends Component {
     }
     if (!pokemon.types) {
       return (
-        <div className="pokemonDetails Error">
+        <div className="pokemonDetails Error" hidden={this.props.show}>
           <ul>
             <li>Error : Not Found</li>
             <li>Code : 404</li>
@@ -28,8 +29,8 @@ class Pokemon extends Component {
       );
     }
     return (
-      <div className="pokemonDetails">
-        <ul>
+      <div className="pokemonDetails" hidden={this.props.show}>
+        <ul hidden={this.props.show}>
           <li>Name: {pokemon.name}</li>
           <li>Height: {pokemon.height}</li>
           <li>Weight: {pokemon.weight}</li>
@@ -48,9 +49,10 @@ class Pokemon extends Component {
             })}
           </li>
         </ul>
-        <img alt="front" src={pokemon.front_default} />
-        <img alt="back" src={pokemon.back_default} />
+        <img alt="front" src={pokemon.front_default} hidden={this.props.show} />
+        <img alt="back" src={pokemon.back_default} hidden={this.props.show} />
         <button
+          hidden={this.props.show}
           className={pokemon.catched ? "catched" : ""}
           id="catchButton"
           onClick={

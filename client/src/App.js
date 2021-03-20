@@ -5,12 +5,14 @@ import Pokemon from "./components/Pokemon";
 import PokemonsList from "./components/PokemonsList";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Spinner from "./components/Spinner";
 
 function App() {
   const [list, setList] = useState([]);
   const [pokemon, setPokemon] = useState("landing");
   const [listType, setListType] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [spinner, setSpinner] = useState(true);
 
   function randomPokemon() {
     axios
@@ -22,9 +24,11 @@ function App() {
 
   function search(pokeName) {
     setSuggestions([]);
+    spinnerOn();
     axios
       .get(`http://localhost:3001/api/pokemon/${pokeName}`)
       .then((newPokemon) => {
+        spinnerOff();
         setPokemon(newPokemon.data);
       })
       .catch((e) => {
@@ -33,9 +37,11 @@ function App() {
   }
 
   function typeList(type) {
+    spinnerOn();
     setListType(type);
     axios.get(`http://localhost:3001/api/type/${type}`).then((newList) => {
       setList(newList.data);
+      spinnerOff();
     });
   }
 
@@ -62,9 +68,11 @@ function App() {
   }
 
   function collection() {
-    axios
-      .get(`http://localhost:3001/api/collection`)
-      .then((newList) => setList(newList.data));
+    spinnerOn();
+    axios.get(`http://localhost:3001/api/collection`).then((newList) => {
+      spinnerOff();
+      setList(newList.data);
+    });
   }
 
   function searchSuggestions(value) {
@@ -79,6 +87,15 @@ function App() {
     }
   }
 
+  function spinnerOn() {
+    setSpinner(false);
+  }
+
+  function spinnerOff() {
+    setSpinner(true);
+    //   document.getElementById(`searchDiv`).hidden = false;
+  }
+
   return (
     <div className="App">
       <div id="searchDiv">
@@ -88,8 +105,9 @@ function App() {
           searchSuggestions={searchSuggestions}
           suggestions={suggestions}
         />
-
+        <Spinner on={spinner} />
         <Pokemon
+          show={!spinner}
           catchPokemon={catchPokemon}
           pokemon={pokemon}
           typeOnClick={typeList}

@@ -1,1 +1,1 @@
-{"name":"unown","height":5,"weight":50,"types":["psychic"],"id":201,"catched":false,"back_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/201.png","front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png"}
+{"name":"unown","height":5,"weight":50,"types":["psychic"],"id":201,"catched":true,"back_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/201.png","front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png"}
