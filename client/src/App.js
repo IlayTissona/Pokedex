@@ -15,18 +15,16 @@ function App() {
   const [spinner, setSpinner] = useState(true);
 
   function randomPokemon() {
-    axios
-      .get("http://localhost:3001/api/pokemon/random")
-      .then((randomPokemon) => {
-        setPokemon(randomPokemon.data);
-      });
+    axios.get("/api/pokemon/random").then((randomPokemon) => {
+      setPokemon(randomPokemon.data);
+    });
   }
 
   function search(pokeName) {
     setSuggestions([]);
     spinnerOn();
     axios
-      .get(`http://localhost:3001/api/pokemon/${pokeName}`)
+      .get(`/api/pokemon/${pokeName}`)
       .then((newPokemon) => {
         spinnerOff();
         setPokemon(newPokemon.data);
@@ -39,37 +37,33 @@ function App() {
   function typeList(type) {
     spinnerOn();
     setListType(type);
-    axios.get(`http://localhost:3001/api/type/${type}`).then((newList) => {
+    axios.get(`/api/type/${type}`).then((newList) => {
       setList(newList.data);
       spinnerOff();
     });
   }
 
   function catchPokemon(name) {
-    axios
-      .post(`http://localhost:3001/api/collection/catch/${name}`)
-      .then((newPokemon) => {
-        setPokemon(newPokemon.data);
-        const newList = list.concat([newPokemon.data]);
-        setList(newList);
-      });
+    axios.post(`/api/collection/catch/${name}`).then((newPokemon) => {
+      setPokemon(newPokemon.data);
+      const newList = list.concat([newPokemon.data]);
+      setList(newList);
+    });
     collection();
   }
 
   function releasePokemon(name) {
-    axios
-      .delete(`http://localhost:3001/api/collection/release/${name}`)
-      .then((newPokemon) => {
-        setPokemon(newPokemon.data);
-        const newList = list.filter((poke) => poke.name !== name);
-        setList(newList);
-      });
+    axios.delete(`/api/collection/release/${name}`).then((newPokemon) => {
+      setPokemon(newPokemon.data);
+      const newList = list.filter((poke) => poke.name !== name);
+      setList(newList);
+    });
     collection();
   }
 
   function collection() {
     spinnerOn();
-    axios.get(`http://localhost:3001/api/collection`).then((newList) => {
+    axios.get(`/api/collection`).then((newList) => {
       spinnerOff();
       setList(newList.data);
     });
@@ -78,7 +72,7 @@ function App() {
   function searchSuggestions(value) {
     if (value.length > 0) {
       axios
-        .get(`http://localhost:3001/api/collection/suggestions/${value}`)
+        .get(`/api/collection/suggestions/${value}`)
         .then((newSuggestions) => {
           setSuggestions(newSuggestions.data);
         });
