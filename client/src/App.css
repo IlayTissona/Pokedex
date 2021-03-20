@@ -163,3 +163,9 @@ ul {
 .catched {
   color: white;
 }
+
+#catchButton :focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
