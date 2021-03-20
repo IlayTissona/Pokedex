@@ -1,1 +1,1 @@
-{"name":"drowzee","height":10,"weight":324,"types":["psychic"],"id":96,"catched":false,"back_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/96.png","front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/96.png"}
+{"name":"drowzee","height":10,"weight":324,"types":["psychic"],"id":96,"catched":true,"back_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/96.png","front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/96.png"}

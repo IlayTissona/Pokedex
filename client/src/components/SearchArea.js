@@ -11,7 +11,7 @@ function SearchArea(props) {
           setValue(e.target.value);
           props.searchSuggestions(e.target.value);
         }}
-        placeHolder="Search for Pokemons"
+        placeholder="Search for Pokemons"
       />
       <button
         onClick={() => {

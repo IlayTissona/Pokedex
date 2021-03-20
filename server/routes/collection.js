@@ -8,16 +8,17 @@ const {
 } = require("../utils/pokeAPI");
 const collectionURL = process.env.POKEAPI_URL + "pokemon";
 const collection = Router();
-const fs = require("fs");
+const Pokemon = require("../mongo");
 
 collection.get("/", (req, res) => {
-  const allPokemons = getAllExisting();
-  res.json(allPokemons.filter((poke) => poke.catched));
+  getAllExisting().then((allPokemons) => {
+    res.json(allPokemons.filter((poke) => poke.catched));
+  });
 });
 
 collection.post("/catch/:name", async (req, res) => {
   const pokemonName = req.params.name;
-  let pokemonFullObj = getExisting(pokemonName);
+  let pokemonFullObj = await getExisting(pokemonName);
   if (!pokemonFullObj) {
     try {
       const responseFullObj = await axios.get(
@@ -29,12 +30,13 @@ collection.post("/catch/:name", async (req, res) => {
     }
   }
   pokemonFullObj.catched = true;
-  res.json(setExisting(pokemonFullObj));
+  setExisting(pokemonFullObj);
+  res.json(pokemonFullObj);
 });
 
 collection.delete("/release/:name", async (req, res) => {
   const pokemonName = req.params.name;
-  let pokemonFullObj = getExisting(pokemonName);
+  let pokemonFullObj = await getExisting(pokemonName);
   if (!pokemonFullObj) {
     try {
       const responseFullObj = await axios.get(
@@ -46,22 +48,18 @@ collection.delete("/release/:name", async (req, res) => {
     }
   }
   pokemonFullObj.catched = false;
-  res.json(setExisting(pokemonFullObj));
+  setExisting(pokemonFullObj);
+  res.json(pokemonFullObj);
 });
 
 collection.get("/suggestions/:value", async (req, res) => {
   const value = req.params.value;
-  const existingPokemons = fs
-    .readdirSync(`${process.cwd()}/routes/JSON-data/recieved`, {
-      withFileTypes: false,
-    })
-    .map((fileName) => fileName.replace(".json", ""));
-
-  const searchSuggestions = existingPokemons.filter((name) =>
-    name.includes(value)
-  );
-
-  res.json(searchSuggestions);
+  Pokemon.find({}).then((allPokemons) => {
+    const searchSuggestions = allPokemons.filter((pokemon) =>
+      pokemon.name.includes(value)
+    );
+    res.json(searchSuggestions.map((pokemon) => pokemon.name));
+  });
 });
 
 module.exports = collection;

@@ -92,16 +92,12 @@ type.get("/:typeName", async (req, res) => {
   const typeObj = types.find((type) => type.name === typeName);
   if (!typeObj) return res.sendStatus(404);
   const fullTypeDetails = await axios.get(typeObj.url);
-  // console.log(fullTypeDetails.data.pokemon);
-  const pokemonNames = fullTypeDetails.data.pokemon.map(
-    (prop) =>
-      getExisting(prop.pokemon.name) || {
-        name: prop.pokemon.name,
-        front_default:
-          "https://www.kindpng.com/picc/m/74-743336_global-link-question-question-mark-unknown-pokemon-hd.png",
-      }
-  );
-  res.json(pokemonNames);
+  const allPokemonNames = fullTypeDetails.data.pokemon;
+  const allPokemons = allPokemonNames.map((pokemonName) => {
+    return getExisting(pokemonName.pokemon.name);
+  });
+
+  Promise.all(allPokemons).then((result) => res.json(result));
 });
 
 module.exports = type;

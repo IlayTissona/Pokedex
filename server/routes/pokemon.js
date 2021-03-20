@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const axios = require("axios");
-const fs = require("fs");
+const Pokemon = require("../mongo");
 const e = require("express");
 const {
   setExisting,
@@ -14,29 +14,28 @@ const collectionURL = process.env.POKEAPI_URL + "pokemon";
 const pokemon = Router();
 
 pokemon.get("/random", async (req, res) => {
-  const existingPokemons = fs
-    .readdirSync(`${process.cwd()}/routes/JSON-data/recieved`, {
-      withFileTypes: false,
-    })
-    .map((fileName) => fileName.replace(".json", ""));
-  const randomPokemonName =
-    existingPokemons[Math.floor(Math.random() * (existingPokemons.length - 1))];
-
-  res.json(getExisting(randomPokemonName));
+  Pokemon.find({}).then((allPokemons) => {
+    res.json(allPokemons[Math.floor(Math.random() * (allPokemons.length - 1))]);
+  });
 });
 
 pokemon.get("/:name", async (req, res) => {
   const pokemonName = req.params.name;
-  const existing = getExisting(pokemonName);
-  if (existing) return res.json(existing);
+  const existing = await getExisting(pokemonName);
+  if (existing._id) return res.json(existing);
   const responseFullObj = await axios
     .get(collectionURL + "/" + pokemonName)
-    .catch((e) => res.send(e));
+    .catch((e) => e);
+
+  if (!responseFullObj.data) {
+    return res.sendStatus(404);
+  }
   const pokemonFullObj = generateResponsePokemon(responseFullObj.data);
   if (!pokemonFullObj) {
     return res.sendStatus(404);
+  } else {
+    res.json(setExisting(pokemonFullObj));
   }
-  res.json(setExisting(pokemonFullObj));
 });
 
 module.exports = pokemon;

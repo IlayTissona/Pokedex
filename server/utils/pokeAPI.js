@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Pokemon = require("../mongo");
 
 //----------------------------------------------Functions-------------------------------------------------//
 
@@ -20,37 +21,26 @@ const generateResponsePokemon = function (fullObj) {
 };
 
 const getExisting = function (pokemonName) {
-  if (
-    fs.existsSync(
-      `${process.cwd()}/routes/JSON-data/recieved/${pokemonName}.json`
-    )
-  ) {
-    return JSON.parse(
-      fs.readFileSync(
-        `${process.cwd()}/routes/JSON-data/recieved/${pokemonName}.json`
-      )
-    );
-  }
-  return null;
+  return Pokemon.findOne({ name: pokemonName }).then((result) =>
+    result
+      ? result
+      : {
+          name: pokemonName,
+          front_default:
+            "https://www.kindpng.com/picc/m/74-743336_global-link-question-question-mark-unknown-pokemon-hd.png",
+          knwon: false,
+        }
+  );
 };
 
 const setExisting = function (pokemonObj) {
-  fs.writeFileSync(
-    `${process.cwd()}/routes/JSON-data/recieved/${pokemonObj.name}.json`,
-    JSON.stringify(pokemonObj)
-  );
-  return pokemonObj;
+  const pokemon = new Pokemon(pokemonObj);
+  pokemon.save().then((e) => e);
+  return pokemon;
 };
 
 const getAllExisting = function () {
-  const existingFiles = fs.readdirSync(
-    `${process.cwd()}/routes/JSON-data/recieved`
-  );
-  return (allPokemons = existingFiles.map((fileName) => {
-    return JSON.parse(
-      fs.readFileSync(`${process.cwd()}/routes/JSON-data/recieved/${fileName}`)
-    );
-  }));
+  return Pokemon.find({}).then((allPokemons) => allPokemons);
 };
 
 module.exports = {
