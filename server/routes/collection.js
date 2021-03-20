@@ -8,6 +8,7 @@ const {
 } = require("../utils/pokeAPI");
 const collectionURL = process.env.POKEAPI_URL + "pokemon";
 const collection = Router();
+const fs = require("fs");
 
 collection.get("/", (req, res) => {
   const allPokemons = getAllExisting();
@@ -46,6 +47,21 @@ collection.delete("/release/:name", async (req, res) => {
   }
   pokemonFullObj.catched = false;
   res.json(setExisting(pokemonFullObj));
+});
+
+collection.get("/suggestions/:value", async (req, res) => {
+  const value = req.params.value;
+  const existingPokemons = fs
+    .readdirSync(`${process.cwd()}/routes/JSON-data/recieved`, {
+      withFileTypes: false,
+    })
+    .map((fileName) => fileName.replace(".json", ""));
+
+  const searchSuggestions = existingPokemons.filter((name) =>
+    name.includes(value)
+  );
+
+  res.json(searchSuggestions);
 });
 
 module.exports = collection;

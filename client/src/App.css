@@ -19,12 +19,21 @@
 
 .searchArea {
   grid-row: 2;
+  align-items: center;
 }
 
 .searchArea input {
   border: none;
   width: 30%;
   height: 80%;
+}
+
+#searchSuggestions {
+  overflow: scroll;
+  border: none;
+  width: 30%;
+  height: 100%;
+  background-color: white;
 }
 
 .searchArea button {
@@ -79,6 +88,7 @@
   height: 35%;
   align-items: center;
 }
+
 .typeListItem button {
   background-color: white;
   font-family: "Orbitron", sans-serif;
@@ -135,6 +145,11 @@ ul {
   background-color: white;
   border-radius: 100px;
   font-family: "Orbitron", sans-serif;
+}
+
+#randomPokemon:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .typeButton {

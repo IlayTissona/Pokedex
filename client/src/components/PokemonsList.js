@@ -11,7 +11,7 @@ class PokemonsList extends Component {
   render() {
     return (
       <div id="ulDiv">
-        <h2>Type</h2>
+        <h2 id="typeTitle">{this.props.listType}</h2>
         <ul id="typeList">
           {this.props.list.map((pokemon) => {
             return (

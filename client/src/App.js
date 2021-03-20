@@ -7,7 +7,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
+  const [list, setList] = useState([]);
   const [pokemon, setPokemon] = useState({ types: [] });
+  const [listType, setListType] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   function randomPokemon() {
     axios
@@ -17,8 +20,8 @@ function App() {
       });
   }
 
-  const [list, setList] = useState([]);
   function search(pokeName) {
+    setSuggestions([]);
     axios
       .get(`http://localhost:3001/api/pokemon/${pokeName}`)
       .then((newPokemon) => {
@@ -27,6 +30,7 @@ function App() {
   }
 
   function typeList(type) {
+    setListType(type);
     axios.get(`http://localhost:3001/api/type/${type}`).then((newList) => {
       setList(newList.data);
     });
@@ -56,11 +60,29 @@ function App() {
       .then((newList) => setList(newList.data));
   }
 
+  function searchSuggestions(value) {
+    console.log(value);
+    if (value.length > 0) {
+      axios
+        .get(`http://localhost:3001/api/collection/suggestions/${value}`)
+        .then((newSuggestions) => {
+          setSuggestions(newSuggestions.data);
+        });
+    } else {
+      setSuggestions([]);
+    }
+  }
+
   return (
     <div className="App">
       <div id="searchDiv">
         <h1 id="title">POKEDEX</h1>
-        <SearchArea search={search} />
+        <SearchArea
+          search={search}
+          searchSuggestions={searchSuggestions}
+          suggestions={suggestions}
+        />
+
         <Pokemon
           catchPokemon={catchPokemon}
           pokemon={pokemon}
@@ -81,7 +103,7 @@ function App() {
 
       <div id="listDiv">
         {" "}
-        <PokemonsList clickHandler={search} list={list} />
+        <PokemonsList clickHandler={search} list={list} listType={listType} />
       </div>
     </div>
   );

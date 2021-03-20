@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 function ListItem({ pokemon, clickHandler }) {
-  console.log(pokemon.front_default);
   return (
     <li className="typeListItem">
       <button

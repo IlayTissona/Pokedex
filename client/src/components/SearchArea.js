@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Suggestion from "./Suggestion";
 
 function SearchArea(props) {
   const [value, setValue] = useState("");
@@ -8,6 +9,7 @@ function SearchArea(props) {
       <input
         onChange={(e) => {
           setValue(e.target.value);
+          props.searchSuggestions(e.target.value);
         }}
       />
       <button
@@ -17,6 +19,12 @@ function SearchArea(props) {
       >
         Search
       </button>
+      <div id="searchSuggestions">
+        {" "}
+        {props.suggestions.map((suggestion) => {
+          return <Suggestion pokemoname={suggestion} />;
+        })}{" "}
+      </div>
     </div>
   );
 }

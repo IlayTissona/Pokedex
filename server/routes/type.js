@@ -92,7 +92,7 @@ type.get("/:typeName", async (req, res) => {
   const typeObj = types.find((type) => type.name === typeName);
   if (!typeObj) return res.sendStatus(404);
   const fullTypeDetails = await axios.get(typeObj.url);
-  console.log(fullTypeDetails.data.pokemon);
+  // console.log(fullTypeDetails.data.pokemon);
   const pokemonNames = fullTypeDetails.data.pokemon.map(
     (prop) =>
       getExisting(prop.pokemon.name) || {
