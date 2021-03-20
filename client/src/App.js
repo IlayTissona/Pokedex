@@ -26,6 +26,9 @@ function App() {
       .get(`http://localhost:3001/api/pokemon/${pokeName}`)
       .then((newPokemon) => {
         setPokemon(newPokemon.data);
+      })
+      .catch((e) => {
+        setPokemon("Not-Found");
       });
   }
 
@@ -40,18 +43,22 @@ function App() {
     axios
       .post(`http://localhost:3001/api/collection/catch/${name}`)
       .then((newPokemon) => {
-        console.log(newPokemon);
         setPokemon(newPokemon.data);
+        const newList = list.concat([newPokemon.data]);
+        setList(newList);
       });
+    collection();
   }
 
   function releasePokemon(name) {
     axios
       .delete(`http://localhost:3001/api/collection/release/${name}`)
       .then((newPokemon) => {
-        console.log(newPokemon);
         setPokemon(newPokemon.data);
+        const newList = list.filter((poke) => poke.name !== name);
+        setList(newList);
       });
+    collection();
   }
 
   function collection() {
@@ -61,7 +68,6 @@ function App() {
   }
 
   function searchSuggestions(value) {
-    console.log(value);
     if (value.length > 0) {
       axios
         .get(`http://localhost:3001/api/collection/suggestions/${value}`)

@@ -59,7 +59,6 @@ class Pokemon extends Component {
               : () => this.props.catchPokemon(pokemon.name)
           }
         >
-          {/* {pokemon.catched ? "release" : "catch"} */}
           <span
             class="iconify"
             data-icon="mdi-pokeball"
