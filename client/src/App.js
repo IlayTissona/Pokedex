@@ -15,8 +15,10 @@ function App() {
   const [spinner, setSpinner] = useState(true);
 
   function randomPokemon() {
+    spinnerOn();
     axios.get("/api/pokemon/random").then((randomPokemon) => {
       setPokemon(randomPokemon.data);
+      spinnerOff();
     });
   }
 
@@ -31,6 +33,7 @@ function App() {
       })
       .catch((e) => {
         setPokemon("Not-Found");
+        spinnerOff();
       });
   }
 
@@ -64,10 +67,10 @@ function App() {
   function collection() {
     spinnerOn();
     axios.get(`/api/collection`).then((newList) => {
-      spinnerOff();
       setList(newList.data);
+      spinnerOff();
+      setListType("");
     });
-    setListType("");
   }
 
   function searchSuggestions(value) {
@@ -88,7 +91,6 @@ function App() {
 
   function spinnerOff() {
     setSpinner(true);
-    //   document.getElementById(`searchDiv`).hidden = false;
   }
 
   return (
