@@ -3,6 +3,7 @@ import React, { Component } from "react";
 class Pokemon extends Component {
   constructor(props) {
     super(props);
+    this.state = { pokemonPicture: props.pokemon.front_default };
   }
 
   render() {
@@ -49,8 +50,18 @@ class Pokemon extends Component {
             })}
           </li>
         </ul>
-        <img alt="front" src={pokemon.front_default} hidden={this.props.show} />
-        <img alt="back" src={pokemon.back_default} hidden={this.props.show} />
+        <img
+          alt="front"
+          src={this.state.pokemonPicture}
+          hidden={this.props.show}
+          onMouseOver={() => {
+            this.setState({ pokemonPicture: pokemon.back_default });
+          }}
+          onMouseOut={() => {
+            this.setState({ pokemonPicture: pokemon.front_default });
+          }}
+        />
+        {/* <img alt="back" src={pokemon.back_default} hidden={this.props.show} /> */}
         <button
           hidden={this.props.show}
           className={pokemon.catched ? "catched" : ""}
