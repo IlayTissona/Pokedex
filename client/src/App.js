@@ -67,6 +67,7 @@ function App() {
       spinnerOff();
       setList(newList.data);
     });
+    setListType("");
   }
 
   function searchSuggestions(value) {
