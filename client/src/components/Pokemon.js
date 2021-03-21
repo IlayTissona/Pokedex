@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Pokemon extends Component {
   constructor(props) {
     super(props);
-    this.state = { pokemonPicture: props.pokemon.front_default };
+    this.state = { front: true };
   }
 
   render() {
@@ -52,13 +52,13 @@ class Pokemon extends Component {
         </ul>
         <img
           alt="front"
-          src={this.state.pokemonPicture}
+          src={this.state.front ? pokemon.front_default : pokemon.back_default}
           hidden={this.props.show}
           onMouseOver={() => {
-            this.setState({ pokemonPicture: pokemon.back_default });
+            this.setState({ front: false });
           }}
           onMouseOut={() => {
-            this.setState({ pokemonPicture: pokemon.front_default });
+            this.setState({ front: true });
           }}
         />
         {/* <img alt="back" src={pokemon.back_default} hidden={this.props.show} /> */}
